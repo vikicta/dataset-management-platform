@@ -43,7 +43,7 @@ composer install
 ```
 cp .env.example .env
 ```
-5. Buka file **.env** kemudian ubah konfigurasi database, disini contoh menggunakan **sqlite**:
+5. Buka file **.env** kemudian ubah konfigurasi database, contoh disini menggunakan **sqlite**:
 ```
 DB_CONNECTION=sqlite
 DB_HOST=127.0.0.1
