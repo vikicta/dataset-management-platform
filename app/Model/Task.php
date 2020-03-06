@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
 use Yajra\DataTables\Facades\DataTables;
@@ -117,8 +118,29 @@ class Task extends Model
      */
     public function download()
     {
-        // get dataset file and download with original name
-        return Storage::download($this->dataset_path, $this->dataset_name);
+        $annotator = Auth::guard('annotator');
+
+        $check = true;
+
+        // prevents annotator from downloading data that is not booked
+        if ($annotator->check()) {
+
+            $annotatorID = $annotator->user()->id;
+
+            if ($this->annotator_id != $annotatorID) {
+                $check = false;
+            }
+
+        }
+
+        if ($check) {
+            return Storage::download($this->dataset_path, $this->dataset_name); // get dataset file and download with original name
+        }
+
+        toast("Can't download this dataset", "warning");
+
+        return redirect()->back();
+
     }
 
     /**
@@ -175,10 +197,7 @@ class Task extends Model
 
         $datatables = DataTables::eloquent($tasks)
                         ->addColumn('action', function($task){
-                            $buttons =
-                            '<a href="'.route('annotator.task.download', ['id' => $task->id]).'" class="btn btn-sm btn-info"><i class="fas fa-download"></i></a> '.
-                            '<a href="'.route('annotator.task.book', $task->id).'" class="btn btn-sm btn-primary book"> <i class="fas fa-book"></i></a> ';
-
+                            $buttons = '<a href="'.route('annotator.task.book', $task->id).'" class="btn btn-sm btn-primary book"> <i class="fas fa-book"></i></a> ';
                             return $buttons;
                         })
                         ->toJson();
