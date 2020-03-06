@@ -98,7 +98,7 @@ class TaskController extends Controller
     {
         // validation file format (zip)
         $this->validate($request, [
-            'dataset' => 'required|file|mimes:zip',
+            'dataset' => 'file|mimes:zip',
         ]);
 
         $task->updateCustom($request);
