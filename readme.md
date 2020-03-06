@@ -24,6 +24,7 @@ Annotator adalah yang mem-booking task
 
 * PHP >= 7.1.3
 * [Composer](https://getcomposer.org)
+* Database (Mysql, Postgre, Sqlite, dll)
 
 ## Installation
 
@@ -32,22 +33,22 @@ Annotator adalah yang mem-booking task
 git clone https://github.com/vikicta/dataset-management-platform.git
 ```
 
-2. Masuk kedalam folder project menggunakan *command line* atau *terminal*
+2. Masuk kedalam folder project menggunakan ***command line*** atau ***terminal***
 
-3. Ketik *command* di bawah untuk menginstal *package* yang digunakan
+3. Ketik *command* di bawah untuk menginstal *packages* yang digunakan
 ```
 composer install
 ```
-4. Buat file .env dan copy isi yang ada di .env.example ke file .env atau bisa mengetikan *command* ini
+4. Buat file **.env** dan copy isi yang ada di **.env.example** ke file **.env** atau bisa mengetikan *command* ini
 ```
 cp .env.example .env
 ```
-5. Buka file .env kemudian bah konfigurasi database, contoh :
+5. Buka file **.env** kemudian ubah konfigurasi database, contoh :
 ```
 DB_CONNECTION=sqlite
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=/Path/Folder/Database/database.sqlite
+DB_DATABASE=/Folder/Database/database.sqlite
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -56,7 +57,7 @@ DB_PASSWORD=
 ```
 php artisan key:generate
 ```
-7. Migrasi file database dan *run seeder* yang sudah tersedia di repo ini dengan mengetikan
+7. Migrasi **file database** dan ***run seeder*** yang sudah tersedia di repo ini dengan mengetikan
 ```
 php artisan migrate --seed
 ```
