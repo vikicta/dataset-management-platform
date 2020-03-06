@@ -96,6 +96,11 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
+        // validation file format (zip)
+        $this->validate($request, [
+            'dataset' => 'required|file|mimes:zip',
+        ]);
+
         $task->updateCustom($request);
 
         toast('Your data as been updated!','success'); // Show pop-up notification
